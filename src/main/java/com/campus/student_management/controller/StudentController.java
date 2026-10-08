@@ -3,6 +3,7 @@ package com.campus.student_management.controller;
 import com.campus.student_management.entity.Student;
 import com.campus.student_management.service.StudentService;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -24,11 +25,36 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
+    // GET STUDENT BY ID
+    @GetMapping("/{id}")
+    public Student getStudentById(
+            @PathVariable Long id) {
+
+        return studentService.getStudentById(id);
+    }
+
     // CREATE STUDENT
     @PostMapping
     public Student createStudent(
-            @RequestBody Student student) {
+            @RequestBody @Valid Student student) {
 
         return studentService.createStudent(student);
+    }
+
+    // UPDATE STUDENT
+    @PutMapping("/{id}")
+    public Student updateStudent(
+            @PathVariable Long id,
+            @RequestBody @Valid Student student) {
+
+        return studentService.updateStudent(id, student);
+    }
+
+    // DELETE STUDENT
+    @DeleteMapping("/{id}")
+    public String deleteStudent(
+            @PathVariable Long id) {
+
+        return studentService.deleteStudent(id);
     }
 }
